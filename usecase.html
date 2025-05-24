@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>养老院管理系统用例图</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>养老院管理系统用例图</h1>
+        <div class="mermaid">
+            graph TB
+                subgraph 系统功能
+                    A[查看老人信息]
+                    B[查看床位信息]
+                    C[编辑老人信息]
+                    D[编辑床位信息]
+                    E[删除老人信息]
+                    F[删除床位信息]
+                    G[分配床位]
+                    H[查看健康监测]
+                    I[记录健康状况]
+                end
+
+                Admin((管理员))
+                Staff((普通员工))
+
+                Staff --> A
+                Staff --> B
+                Staff --> C
+                Staff --> D
+                Staff --> G
+                Staff --> H
+                Staff --> I
+
+                Admin --> A
+                Admin --> B
+                Admin --> C
+                Admin --> D
+                Admin --> E
+                Admin --> F
+                Admin --> G
+                Admin --> H
+                Admin --> I
+
+                style Admin fill:#f9f,stroke:#333,stroke-width:2px
+                style Staff fill:#bbf,stroke:#333,stroke-width:2px
+        </div>
+
+        <div class="mermaid">
+            flowchart LR
+                subgraph 权限说明
+                    CommonOps[普通操作]
+                    AdminOps[管理员专属操作]
+                end
+
+                Staff2((普通员工)) --> CommonOps
+                Admin2((管理员)) --> CommonOps
+                Admin2 --> AdminOps
+
+                CommonOps --> ViewInfo[查看信息]
+                CommonOps --> EditInfo[编辑信息]
+                CommonOps --> AssignBed[分配床位]
+                CommonOps --> HealthMonitor[健康监测]
+
+                AdminOps --> DeleteMember[删除老人]
+                AdminOps --> DeleteBed[删除床位]
+
+                style Admin2 fill:#f9f,stroke:#333,stroke-width:2px
+                style Staff2 fill:#bbf,stroke:#333,stroke-width:2px
+                style CommonOps fill:#dfd,stroke:#333,stroke-width:2px
+                style AdminOps fill:#fdd,stroke:#333,stroke-width:2px
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html> 
